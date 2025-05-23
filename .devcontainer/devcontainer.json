@@ -1,0 +1,58 @@
+{
+    "name": "Adiak Devcontainer",
+    "dockerFile": "Dockerfile",
+    "context": "../",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/vscode/Adiak,type=bind",
+    "workspaceFolder": "/home/vscode/Adiak",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "cmake.buildDirectory": "${workspaceFolder}/build-vscode-devcontainer",
+                "cmake.sourceDirectory": "${workspaceFolder}",
+                "cmake.buildTask": true,
+                "cmake.configureSettings": {
+                    "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                    "MPI_HOME": "/usr",
+                    "pybind11_DIR": "/usr/lib/python3/dist-packages/pybind11/share/cmake/pybind11"
+                },
+                "cmake.generator": "Unix Makefiles",
+                "clangd.arguments": [
+                    "-background-index",
+                    "-compile-commands-dir=build-vscode-devcontainer"
+                ],
+                "[python]": {
+                    "editor.defaultFormatter": "charliermarsh.ruff",
+                    "editor.codeActionsOnSave": {
+                        "source.organizeImports": "explicit"
+                    }
+                }
+            },
+            "extensions": [
+                "llvm-vs-code-extensions.vscode-clangd",
+                "ms-vscode.cmake-tools",
+                "oderwat.indent-rainbow",
+                "ms-toolsai.jupyter",
+                // Note: not needed because it's provided by
+                //       features/python
+                // "ms-python.python",
+                "charliermarsh.ruff",
+                "tamasfe.even-better-toml"
+            ]
+        }
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/python:1": {
+            "version": "3.11",
+            "installTools": true,
+            "enableShared": true,
+            "installPath": "/usr/local/python"
+        },
+        "ghcr.io/devcontainers-extra/features/gcovr:1": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/devcontainers-community/features/llvm:3": {
+            "version": "18"
+        },
+        "ghcr.io/devcontainers-extra/features/neovim-apt-get:1": {},
+        "ghcr.io/devcontainers-extra/features/wget-apt-get:1": {}
+    }
+}
